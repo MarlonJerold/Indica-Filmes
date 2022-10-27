@@ -1,35 +1,31 @@
+from random import randint
 import smtplib
 import email.message
 import requests
 import pandas as pd
-
+import numpy as np
+from sympy import numer
 
 from conectaapi import *
 
-from random import randint 
 
-
-class Filmes(Conexao):
+class Filmes:
         
     conectar = Conexao
-    apiJson = conectar.teste()  
-
-    
-    def keysapiflimes(apiJson):
-        keys = apiJson['items'][0].keys()    
-        return keys
-    
-    def valuesapifilmes(apiJson):
-        values = apiJson['items'][0].values()  
-        return values        
-        
-    def filmealeatorio():
-        valor = Filmes
-        testevalues = valor.valuesapifilmes()
-        keys = Filmes
-        testekeys = keys.keysapiflimes()
-    
-        dadostratado = pd.DataFrame(testevalues, index=testekeys)
-        print(dadostratado)
+    apiJson = conectar.leituraJson()
                 
-    filmealeatorio()      
+    def Top200filmes(apiJson, number):   
+                      
+        keys = apiJson['imDbId'][number].keys()  
+        values = apiJson['imDbId'][number].values()
+        dadostratado = pd.DataFrame(values, index=keys)
+        print(dadostratado)
+        
+    def filme200aleatorio(apiJson, number):
+        
+        numer = range(1,200)    
+        keys = apiJson['imDbId'][number].keys()  
+        values = apiJson['imDbId'][number].values()
+        dadostratado = pd.DataFrame(values, index=keys)
+        print(dadostratado)   
+        
